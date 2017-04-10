@@ -4,7 +4,8 @@ public class Web {
 	public static String getAddress(){
 		return address;
 	}
-	static private String address ="192.168.172.92:80";
+
+	static private String address = "192.168.0.100:8080";
 	
 	public static void setAddress(String input){
 		address=input;

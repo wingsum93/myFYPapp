@@ -1,9 +1,8 @@
 package com.ericho.myapi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.ericho.fyp.datatype.User;
 
-import com.ericho.datatype.User;
+import java.util.HashMap;
 
 public class Login {
 	private static HashMap<String, String> data = new HashMap<String, String>();
