@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ericho.FinalYearProject"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:maxSdkVersion="19"
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
+    <!-- Internet Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:configChanges="keyboardHidden|orientation"
+        android:icon="@drawable/farm_ic"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" android:hardwareAccelerated="true" android:allowBackup="true">
+        <activity
+            android:name=".MainScreenActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/app_name" >
+        </activity>
+
+        <!-- All Product Activity -->
+        <activity
+            android:name=".AllProductsActivity"
+            android:label="All Products" >
+        </activity>
+
+        <!-- Add Product Activity -->
+        <activity
+            android:name=".NewProductActivity"
+            android:label="Add New Product" >
+        </activity>
+
+        <!-- Edit Product Activity -->
+        <activity
+            android:name=".EditProductActivity"
+            android:label="Edit Product" >
+        </activity>
+        <!-- change server address Activity -->
+        <activity
+            android:name=".ChangeAddressActivity"
+            android:label="Change your server address" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginFarmActivity"
+            android:icon="@drawable/banana"
+            android:label="login farm" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name=".CustomerMainActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_consumer_main" >
+        </activity>
+        <activity
+            android:name=".FarmMainActivity"
+            android:icon="@drawable/banana"
+            android:label="title_activity_farm_main" >
+        </activity>
+        <activity
+            android:name=".LoginConsumerActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_login_consumer" >
+        </activity>
+        <activity
+            android:name=".ConsumerChooseFarmActivity"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_consumer_choose_farm" >
+        </activity>
+        <activity
+            android:name=".ConsumerBuyProductActivity"
+            android:icon="@drawable/banana"
+            android:label="" >
+        </activity>
+        <activity
+            android:name=".FarmViewTransactionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:icon="@drawable/banana"
+            android:label="@string/title_activity_farm_view_transaction" >
+        </activity>
+        <activity
+            android:name=".FarmViewTransactionDetailsActivity"
+            android:label="@string/title_activity_farm_view_transaction_details" >
+        </activity>
+    </application>
+
+    <!--
+     To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies
+    -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- To retrieve the account name (email) as part of sign-in: -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+</manifest>
