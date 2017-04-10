@@ -35,7 +35,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ConsumerChooseFarmActivity extends Activity implements OnItemClickListener{
+public class ConsumerChooseFarmActivity extends RxLifecycleAct implements OnItemClickListener{
 	ListView listV;
 	String[] farm_name = new String[]{"happy farm", "ban farm"};
 	Integer[] farm_icon = new Integer[]{R.drawable.vegetable,R.drawable.banana};
