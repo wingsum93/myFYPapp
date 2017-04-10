@@ -1,9 +1,22 @@
 package com.ericho.FinalYearProject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.ericho.FinalYearProject.adapter.GoodListViewAdapter;
+import com.ericho.datatype.Farm;
+import com.ericho.datatype.FarmInTheSystem;
+import com.ericho.datatype.FarmVegetable;
+import com.ericho.myapi.JSONParser;
+import com.ericho.myapi.Web;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,32 +24,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ericho.datatype.Farm;
-import com.ericho.datatype.FarmVegetable;
-import com.ericho.datatype.FarmInTheSystem;
-import com.ericho.myapi.JSONParser;
-import com.ericho.myapi.Web;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ConsumerChooseFarmActivity extends RxLifecycleAct implements OnItemClickListener{
-	ListView listV;
+    @BindView(R.id.activity_consumer_choose_farm_list_view)
+    ListView listV;
 	String[] farm_name = new String[]{"happy farm", "ban farm"};
 	Integer[] farm_icon = new Integer[]{R.drawable.vegetable,R.drawable.banana};
 	private ProgressDialog pDialog;JSONParser jParser;int productListSize;
@@ -61,16 +58,15 @@ public class ConsumerChooseFarmActivity extends RxLifecycleAct implements OnItem
 		jParser=new JSONParser();
 	}
 	private void assignC(){
-		listV = (ListView)findViewById(R.id.activity_consumer_choose_farm_list_view);
-		
-		//listener
-		
-		// do sothing
+        ButterKnife.bind(this);
+        //listener
+        listV.setOnItemClickListener(this);
+        // do sothing
 		
 		GoodListViewAdapter adpt=new GoodListViewAdapter(this);
 		listV.setAdapter(adpt);
-		listV.setOnItemClickListener(this);
-	}
+
+    }
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 		Intent i =new Intent();
@@ -90,57 +86,7 @@ public class ConsumerChooseFarmActivity extends RxLifecycleAct implements OnItem
 		Toast.makeText(getApplicationContext(), "move to next..", Toast.LENGTH_SHORT).show();
 		if(qq!=null)startActivity(i);
 	}
-	class GoodListViewAdapter extends BaseAdapter{
-		private Context ccon;// use for start 
-		private LayoutInflater mInflator;// use to draw view
-		GoodListViewAdapter(Context c){
-			// constructor
-			this.ccon=c;
-			mInflator=LayoutInflater.from(ccon);
-		}
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return farm_icon.length;
-		}
 
-		@Override
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return arg0;
-		}
-		@Override
-		public View getView(int position, View conVertView, ViewGroup arg2) {
-			// TODO Auto-generated method stub
-			ViewHolder holder ;
-			if(conVertView==null){
-				holder = new  ViewHolder();
-				conVertView= mInflator.inflate(R.layout.list_view_choose_farm,null);
-				holder.txv=(TextView)conVertView.findViewById(R.id.list_view_choose_farm_txv);
-				holder.img=(ImageView)conVertView.findViewById(R.id.list_view_choose_farm_imgv);
-				conVertView.setTag(holder);
-			}else{
-				holder=(ViewHolder)conVertView.getTag();
-			}
-		    // set item content
-			holder.txv.setText(FarmInTheSystem.getFarmObject(position).getName());
-			holder.img.setImageResource(FarmInTheSystem.getFarmObject(position).getPictureCode());
-		    
-			return conVertView;
-		}
-		class ViewHolder{
-			TextView txv;
-			ImageView img;
-		}
-		
-
-		
-	}
 	class getOneFarmAllVegetableAsyncTask extends AsyncTask<Void, String,String>{
 		//this is a class to load the farm product thought internet
 		@Override

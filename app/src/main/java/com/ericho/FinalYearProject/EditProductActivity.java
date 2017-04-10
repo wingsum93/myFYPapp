@@ -1,17 +1,5 @@
 package com.ericho.FinalYearProject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.ericho.myapi.JSONParser;
-import com.ericho.myapi.Web;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,14 +10,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ericho.myapi.JSONParser;
+import com.ericho.myapi.Web;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EditProductActivity extends Activity {
 
-	EditText txtName;
-	EditText txtPrice;
-	EditText txtDesc;
+    @BindView(R.id.inputName)
+    EditText txtName;
+    @BindView(R.id.inputPrice)
+    EditText txtPrice;
+    @BindView(R.id.inputDesc)
+    EditText txtDesc;
+
 	EditText txtCreatedAt;
-	Button btnSave;
-	Button btnDelete;
+    @BindView(R.id.btnSave)
+    Button btnSave;
+    @BindView(R.id.btnDelete)
+    Button btnDelete;
 
 	String pid;
 
@@ -52,9 +61,7 @@ public class EditProductActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_product);
 
-		// save button
-		btnSave = (Button) findViewById(R.id.btnSave);
-		btnDelete = (Button) findViewById(R.id.btnDelete);
+        ButterKnife.bind(this);
 
 		// getting product details from intent
 		Intent i = getIntent();
@@ -139,10 +146,6 @@ public class EditProductActivity extends Activity {
 							JSONObject product = productObj.getJSONObject(0);
 
 							// product with this pid found
-							// Edit Text
-							txtName = (EditText) findViewById(R.id.inputName);
-							txtPrice = (EditText) findViewById(R.id.inputPrice);
-							txtDesc = (EditText) findViewById(R.id.inputDesc);
 
 							// display product data in EditText
 							txtName.setText(product.getString(TAG_NAME));

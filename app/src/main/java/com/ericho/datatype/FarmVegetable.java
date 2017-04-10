@@ -1,14 +1,23 @@
 package com.ericho.datatype;
 
+import com.google.gson.annotations.SerializedName;
+
 public class FarmVegetable {
 	public int vegetablePictureCode;
-	public String vegetableName;
-	public int vegetablePrice;
-	public String vegetableID;
+    @SerializedName("name")
+    public String vegetableName;
+    @SerializedName("price")
+    public int vegetablePrice;
+    @SerializedName("product_id")
+    public String vegetableID;
 	public String vegetableDescription;
-	public String VegetableUnit;
+    @SerializedName("unit")
+    public String VegetableUnit;
 	public double quantity;
 	public int img_int;
+    @SerializedName("img_name")
+    private String imgName;
+
 	public FarmVegetable(){
 		this.vegetableName="";
 		this.vegetablePrice=0;

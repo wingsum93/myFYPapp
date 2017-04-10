@@ -1,9 +1,6 @@
 package com.ericho.FinalYearProject;
 
 
-
-import com.ericho.myapi.Web;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -16,17 +13,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ericho.myapi.Web;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ChangeAddressActivity extends Activity implements OnClickListener{
-	Button makeSure;
-	EditText add,portN;
-	TextView t1;
+    @BindView(R.id.ch_btn1)
+    Button makeSure;
+    @BindView(R.id.ch_edt1)
+    EditText add;
+    @BindView(R.id.ch_edt2)
+    EditText portN;
+    TextView t1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_address);
-		makeSure = (Button) findViewById(R.id.ch_btn1);
-		add = (EditText) findViewById(R.id.ch_edt1);
-		portN = (EditText) findViewById(R.id.ch_edt2);
+        ButterKnife.bind(this);
+
 		// set listener
 		
 		makeSure.setOnClickListener(this);

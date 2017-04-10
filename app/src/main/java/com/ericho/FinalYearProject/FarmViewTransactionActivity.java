@@ -1,32 +1,12 @@
 package com.ericho.FinalYearProject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.ericho.FinalYearProject.ConsumerChooseFarmActivity.GoodListViewAdapter.ViewHolder;
-import com.ericho.datatype.FarmInTheSystem;
-import com.ericho.datatype.Transaction;
-import com.ericho.datatype.TransactionDetail;
-import com.ericho.datatype.TransactionOfFarm;
-import com.ericho.myapi.JSONParser;
-import com.ericho.myapi.Web;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -34,21 +14,40 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ericho.datatype.Transaction;
+import com.ericho.datatype.TransactionDetail;
+import com.ericho.datatype.TransactionOfFarm;
+import com.ericho.myapi.JSONParser;
+import com.ericho.myapi.Web;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FarmViewTransactionActivity extends Activity implements OnItemClickListener,OnClickListener{
-	ListView list;Button bt_refresh;
-	private ProgressDialog pDialog;
+    @BindView(R.id.Activity_farm_view_transaction_list)
+    ListView list;
+    @BindView(R.id.Activity_farm_view_transaction_bt_refresh)
+    Button bt_refresh;
+    private ProgressDialog pDialog;
 	JSONParser jsonParser;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_farm_view_transaction);
-		list = (ListView)findViewById(R.id.Activity_farm_view_transaction_list);
-		bt_refresh = (Button)findViewById(R.id.Activity_farm_view_transaction_bt_refresh);
-		bt_refresh.setOnClickListener(this);
+        ButterKnife.bind(this);
+        bt_refresh.setOnClickListener(this);
 	}
 
 	@Override

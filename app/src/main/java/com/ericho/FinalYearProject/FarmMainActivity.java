@@ -7,9 +7,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FarmMainActivity extends Activity implements OnClickListener{
-	Button bt1,bt2,bt3,bt4;
-	@Override
+    @BindView(R.id.activity_farm_main_interface_prepare)
+    Button bt1;
+    @BindView(R.id.activity_farm_main_interface_validate)
+    Button bt2;
+    @BindView(R.id.activity_farm_main_interface_get_package)
+    Button bt3;
+    @BindView(R.id.activity_farm_main_interface_statistic)
+    Button bt4;
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_farm_main);
@@ -17,12 +28,8 @@ public class FarmMainActivity extends Activity implements OnClickListener{
 	}
 
 	private void assignC() {
-		// TODO Auto-generated method stub
-		bt1 = (Button)findViewById(R.id.activity_farm_main_interface_prepare);
-		bt2 = (Button)findViewById(R.id.activity_farm_main_interface_validate);
-		bt3 = (Button)findViewById(R.id.activity_farm_main_interface_get_package);
-		bt4 = (Button)findViewById(R.id.activity_farm_main_interface_statistic);
-		//add lsistener
+        ButterKnife.bind(this);
+        //add lsistener
 		bt1.setOnClickListener(this);
 		bt2.setOnClickListener(this);
 		bt3.setOnClickListener(this);

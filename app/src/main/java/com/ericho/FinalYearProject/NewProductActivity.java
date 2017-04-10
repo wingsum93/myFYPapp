@@ -1,19 +1,6 @@
 package com.ericho.FinalYearProject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.ericho.myapi.JSONParser;
-import com.ericho.myapi.Web;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,31 +9,44 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class NewProductActivity extends Activity {
+import com.ericho.myapi.JSONParser;
+import com.ericho.myapi.Web;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class NewProductActivity extends RxLifecycleAct {
 
 	// Progress Dialog
 	private ProgressDialog pDialog;
 
 	JSONParser jsonParser = new JSONParser();
-	EditText inputName;
-	EditText inputPrice;
-	EditText inputDesc;
-
-	// JSON Node names
+    @BindView(R.id.inputName)
+    EditText inputName;
+    @BindView(R.id.inputPrice)
+    EditText inputPrice;
+    @BindView(R.id.inputDesc)
+    EditText inputDesc;
+    @BindView(R.id.btnCreateProduct)
+    Button btnCreateProduct;
+    // JSON Node names
 	private static final String TAG_SUCCESS = "success";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_product);
-		
-		// Edit Text
-		inputName = (EditText) findViewById(R.id.inputName);
-		inputPrice = (EditText) findViewById(R.id.inputPrice);
-		inputDesc = (EditText) findViewById(R.id.inputDesc);
 
-		// Create button
-		Button btnCreateProduct = (Button) findViewById(R.id.btnCreateProduct);
+        ButterKnife.bind(this);
+
 
 		// button click event
 		btnCreateProduct.setOnClickListener(new View.OnClickListener() {

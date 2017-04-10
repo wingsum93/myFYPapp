@@ -1,9 +1,5 @@
 package com.ericho.FinalYearProject;
 
-import com.ericho.datatype.User;
-import com.jakewharton.rxbinding2.view.RxView;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,14 +7,24 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ericho.datatype.User;
+import com.jakewharton.rxbinding2.view.RxView;
+
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class CustomerMainActivity extends RxLifecycleAct implements OnClickListener{
-	Button bt1,bt2;TextView txv;
+    @BindView(R.id.activity_customer_main_interface_buy)
+    Button bt1;
+    @BindView(R.id.activity_customer_main_interface_upload_photo)
+    Button bt2;
+    @BindView(R.id.activity_customer_main_interface_txv)
+    TextView txv;
 
 	private Observer<Integer> observer ;
 	@Override 
@@ -29,10 +35,8 @@ public class CustomerMainActivity extends RxLifecycleAct implements OnClickListe
 		
 	}
 	private void assignC(){
-		bt1 = (Button)findViewById(R.id.activity_customer_main_interface_buy);
-		bt2 = (Button)findViewById(R.id.activity_customer_main_interface_upload_photo);
-		txv = (TextView)findViewById(R.id.activity_customer_main_interface_txv);
-		//add listener
+        ButterKnife.bind(this);
+        //add listener
 		RxView.clicks(bt1)
 				.debounce(1000, TimeUnit.MILLISECONDS)
 				.map(o -> (View) o)
