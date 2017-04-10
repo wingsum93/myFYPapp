@@ -22,5 +22,8 @@ public class Web {
 	public static final String url_receive_order = "http://"+Web.getAddress()+"/fyp/receive_order.php";
 	public static final String url_get_all_farM = "http://"+Web.getAddress()+"/fyp/test.php";
 	public static final String farm_admin = "http://"+Web.getAddress()+"/fyp/farm_admin.php";
-	
+
+	public static String getAddress222() {
+		return "http://" + address + "/fyp/";
+	}
 }
