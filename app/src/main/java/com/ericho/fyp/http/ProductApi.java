@@ -15,7 +15,7 @@ import retrofit2.http.QueryMap;
  * Created by EricH on 10/4/2017.
  */
 
-public interface ProductService {
+public interface ProductApi {
 
     @POST("/create_product.php")
     Observable<BaseResponse<String>> createProduct(

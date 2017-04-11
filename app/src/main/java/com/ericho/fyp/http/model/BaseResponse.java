@@ -11,4 +11,8 @@ public class BaseResponse<T> {
     public boolean isSuccess() {
         return success == 1;
     }
+
+    public T getProducts() {
+        return products;
+    }
 }

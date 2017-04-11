@@ -1,6 +1,7 @@
-package com.ericho.fyp.http.model;
+package com.ericho.fyp.http;
 
 import com.ericho.fyp.datatype.Transaction;
+import com.ericho.fyp.http.model.BaseListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.POST;
@@ -12,7 +13,7 @@ import retrofit2.http.Query;
  * package name com.ericho.FinalYearProject.http.model
  */
 
-public interface FarmAdminService {
+public interface FarmAdminApi {
 
     @POST
     Call<BaseListResponse<Transaction>> getTransactions(@Query("fid") String fid);

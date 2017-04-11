@@ -1,12 +1,21 @@
 package com.ericho.myapi;
 
+import okhttp3.HttpUrl;
+
 public class Web {
 	public static String getAddress(){
 		return address;
 	}
 
+	private static HttpUrl httpUrl;
 	static private String address = "192.168.0.100:8080";
-	
+
+	static {
+		httpUrl = HttpUrl.parse(getAddress222());
+	}
+
+
+
 	public static void setAddress(String input){
 		address=input;
 	}
@@ -25,5 +34,9 @@ public class Web {
 
 	public static String getAddress222() {
 		return "http://" + address + "/fyp/";
+	}
+
+	public static HttpUrl getHttpUrl() {
+		return httpUrl;
 	}
 }
