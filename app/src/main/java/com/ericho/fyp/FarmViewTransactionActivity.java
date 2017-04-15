@@ -1,11 +1,11 @@
 package com.ericho.fyp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +21,12 @@ import android.widget.TextView;
 import com.ericho.fyp.datatype.Transaction;
 import com.ericho.fyp.datatype.TransactionDetail;
 import com.ericho.fyp.datatype.TransactionOfFarm;
+import com.ericho.fyp.http.FarmAdminApi;
+import com.ericho.fyp.http.FarmApi;
+import com.ericho.fyp.http.ProductApi;
 import com.ericho.myapi.JSONParser;
 import com.ericho.myapi.Web;
+import com.ericho.util.MGson;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,20 +39,74 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FarmViewTransactionActivity extends Activity implements OnItemClickListener,OnClickListener{
-    @BindView(R.id.Activity_farm_view_transaction_list)
-    ListView list;
+public class FarmViewTransactionActivity extends RxLifecycleAct implements OnItemClickListener, OnClickListener {
+	private static final String tag = "FarmViewTransactionAc";
+	@BindView(R.id.Activity_farm_view_transaction_list)
+	ListView list;
     @BindView(R.id.Activity_farm_view_transaction_bt_refresh)
     Button bt_refresh;
     private ProgressDialog pDialog;
 	JSONParser jsonParser;
+
+	ProductApi productApi;
+	FarmApi farmApi;
+	FarmAdminApi farmAdminApi;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_farm_view_transaction);
         ButterKnife.bind(this);
         bt_refresh.setOnClickListener(this);
+
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(Web.getHttpUrl())
+				.addConverterFactory(GsonConverterFactory.create())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				.build();
+
+		farmAdminApi = retrofit.create(FarmAdminApi.class);
+		farmApi = retrofit.create(FarmApi.class);
+		farmAdminApi.getTransactions()
+				.filter(bas -> bas.isSuccess())
+				.map(res -> res.getTransaction())
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.compose(this.bindToLifeCycle())
+				.subscribe(new Observer<List<Transaction>>() {
+					@Override
+					public void onSubscribe(Disposable d) {
+					}
+
+					@Override
+					public void onNext(List<Transaction> transactions) {
+						Log.d(tag, MGson.getInstance().toJson(transactions));
+						Log.d(tag, "onMain thread?? " + Looper.myLooper().equals(Looper.getMainLooper()));
+						TransactionOfFarm.flushTheTransaction();
+						TransactionOfFarm.t.addAll(transactions);
+						ViewAllTransactionAdapter adapter = new ViewAllTransactionAdapter(FarmViewTransactionActivity.this);
+						list.setAdapter(adapter);
+						adapter.notifyDataSetChanged();
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						Log.w(tag, e);
+					}
+
+					@Override
+					public void onComplete() {
+						Log.w(tag, "onComplete");
+					}
+				});
 	}
 
 	@Override
@@ -151,7 +209,6 @@ public class FarmViewTransactionActivity extends Activity implements OnItemClick
 					// update the farm
 					ViewAllTransactionAdapter adapter = new ViewAllTransactionAdapter(FarmViewTransactionActivity.this);
 					list.setAdapter(adapter);
-					list.setOnItemClickListener(FarmViewTransactionActivity.this);
 					adapter.notifyDataSetChanged();
 				}
 				
@@ -214,8 +271,9 @@ public class FarmViewTransactionActivity extends Activity implements OnItemClick
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.Activity_farm_view_transaction_bt_refresh:
-			GetFarmAllTransactionAsyncTask task = new GetFarmAllTransactionAsyncTask();
-			task.execute();
+//			GetFarmAllTransactionAsyncTask task = new GetFarmAllTransactionAsyncTask();
+//			task.execute();
+
 			break;
 		
 		

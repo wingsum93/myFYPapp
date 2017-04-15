@@ -1,11 +1,9 @@
 package com.ericho.fyp.http;
 
-import com.ericho.fyp.datatype.Transaction;
-import com.ericho.fyp.http.model.BaseListResponse;
+import com.ericho.fyp.http.model.TransactionResponse;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Created by steve_000 on 10/4/2017.
@@ -15,6 +13,6 @@ import retrofit2.http.Query;
 
 public interface FarmAdminApi {
 
-    @POST
-    Call<BaseListResponse<Transaction>> getTransactions(@Query("fid") String fid);
+    @POST("farm_admin.php?fid=1")
+    Observable<TransactionResponse> getTransactions();
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.ericho.fyp.act.ChangeServerDialog;
 import com.ericho.fyp.datatype.FarmVegetable;
 import com.ericho.fyp.http.FarmApi;
 import com.ericho.fyp.http.ProductApi;
@@ -95,7 +96,10 @@ public class MainActivity extends RxLifecycleAct implements OnClickListener {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		
+		if (item.getItemId() == R.id.other) {
+			startActivity(new Intent(this, ChangeServerDialog.class));
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	private void assignC(){

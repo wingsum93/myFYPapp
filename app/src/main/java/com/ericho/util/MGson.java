@@ -12,7 +12,7 @@ public class MGson {
 
     public static Gson getInstance() {
         if (gson == null) {
-            synchronized (gson) {
+            synchronized (MGson.class) {
                 if (gson == null)
                     gson = new GsonBuilder().create();
             }

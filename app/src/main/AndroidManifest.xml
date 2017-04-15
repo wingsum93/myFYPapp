@@ -84,13 +84,18 @@
         <activity
             android:name=".ConsumerBuyProductActivity"
             android:icon="@drawable/banana"
+            android:label="" />
+        <activity
+            android:name=".act.ChangeServerDialog"
+            android:icon="@drawable/banana"
             android:label="" >
         </activity>
         <activity
             android:name=".FarmViewTransactionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:icon="@drawable/banana"
-            android:label="@string/title_activity_farm_view_transaction" >
+            android:label="@string/title_activity_farm_view_transaction"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".FarmViewTransactionDetailsActivity"

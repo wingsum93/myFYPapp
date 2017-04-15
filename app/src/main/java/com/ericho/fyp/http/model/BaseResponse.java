@@ -4,13 +4,10 @@ package com.ericho.fyp.http.model;
  * Created by EricH on 10/4/2017.
  */
 
-public class BaseResponse<T> {
-    private int success;
+public class BaseResponse<T> extends AbstractResponse {
+
     private T products;
 
-    public boolean isSuccess() {
-        return success == 1;
-    }
 
     public T getProducts() {
         return products;

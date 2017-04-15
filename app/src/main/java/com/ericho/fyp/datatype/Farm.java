@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Farm {
 	public static String farmNmae;
-	public static String paymentAccountNumber;
-	public static String address;
+    public static String up;
+    public static String address;
 	public static String farmCode;
 	//List product
 	public static ArrayList<FarmVegetable> myFarmProduct;
